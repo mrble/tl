@@ -1,4 +1,9 @@
-
+require('dotenv').config();
+const contentful = require('contentful');
+const contentfulClient = contentful.createClient({
+  space: process.env.space,
+  accessToken: process.env.accessToken
+});
 module.exports = {
   mode: 'universal',
   /*
@@ -23,11 +28,15 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    '@/assets/css/style.scss',
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '~/plugins/contentful',
+    '~/plugins/prism',
+    '~/plugins/markdown-it',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -38,6 +47,7 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/dotenv',
   ],
   /*
   ** Build configuration
@@ -48,5 +58,9 @@ module.exports = {
     */
     extend (config, ctx) {
     }
-  }
+  },
+  env: {
+    space: process.env.space,
+    accessToken: process.env.accessToken,
+  },
 }
